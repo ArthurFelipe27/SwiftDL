@@ -48,18 +48,19 @@ Caso queira rodar o projeto via código-fonte:
 
 ```bash
 pip install yt-dlp ttkbootstrap
+````
 
-Observações
+## Observações
 
-    O FFmpeg é utilizado para converter e mesclar áudio e vídeo.
+  O FFmpeg é utilizado para converter e mesclar áudio e vídeo.
 
-    Caso o FFmpeg não esteja configurado, o programa ainda funciona, mas pode perder algumas funcionalidades.
+  Caso o FFmpeg não esteja configurado, o programa ainda funciona, mas pode perder algumas funcionalidades.
 
-    A velocidade e sucesso do download dependem da qualidade da internet e das políticas do YouTube.
+  A velocidade e sucesso do download dependem da qualidade da internet e das políticas do YouTube.
 
 Licença
 
-MIT License — sinta-se à vontade para usar e modificar.
-Contato
+MIT License — sinta-se à vontade para usar e modificar.  
 
+### Contato  
 Arthur Matos — [arthurfelipedasilvamatosdev@gmail.com]
