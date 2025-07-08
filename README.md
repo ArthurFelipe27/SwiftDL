@@ -26,7 +26,7 @@ SwiftDL é um downloader de playlists do YouTube com interface gráfica simples 
 
 ## Como usar
 
-1. Execute o arquivo `gui.exe` (se estiver usando a versão empacotada).
+1. Execute o arquivo `SwiftDL.exe` (se estiver usando a versão empacotada).
 
 2. Insira o link da playlist do YouTube no campo **Link da Playlist**.
 
