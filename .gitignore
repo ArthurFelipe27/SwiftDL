@@ -1,0 +1,7 @@
+# FFmpeg (binários locais - não enviar para o GitHub)
+/ffmpeg-7.1.1-full_build/
+
+# Outros arquivos comuns para ignorar em projetos Python
+__pycache__/
+*.pyc
+.DS_Store 
