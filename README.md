@@ -1,67 +1,69 @@
-# SwiftDL - Download de Mídia Simples
+# SwiftDL - Downloader de Mídia Moderno e Eficiente
 
-O SwiftDL é uma aplicação desktop intuitiva e eficiente para baixar vídeos e áudios de diversas plataformas online, como YouTube, TikTok, Instagram, Facebook, Pinterest e muitas outras suportadas pela poderosa biblioteca `yt-dlp`. Com uma interface amigável, ele simplifica o processo de salvar seu conteúdo favorito diretamente no seu computador.
+![Screenshot do SwiftDL](https://i.imgur.com/8fL7oYj.png)
+
+O SwiftDL é uma aplicação desktop com interface moderna e intuitiva para baixar vídeos e áudios de diversas plataformas online, como YouTube, TikTok, Instagram e muitas outras suportadas pela poderosa biblioteca `yt-dlp`. Com um tema escuro agradável e ícones informativos, ele simplifica o processo de salvar seu conteúdo favorito diretamente no seu computador.
 
 ## Funcionalidades Principais
 
-* **Download de Vídeos:** Baixe vídeos em formato MP4, mantendo a melhor qualidade disponível.
-* **Extração de Áudio:** Converta vídeos para áudio MP3 de alta qualidade.
-* **Download Apenas de Vídeo:** Baixe o stream de vídeo em MP4 (sem áudio), ideal para projetos de edição.
+* **Interface Moderna:** Tema escuro com detalhes em roxo, desenhado para ser visualmente agradável e funcional.
+* **Múltiplos Formatos de Download:**
+    * **Vídeo Completo (MP4):** Baixe vídeos com áudio na melhor qualidade disponível.
+    * **Apenas Áudio (MP3):** Extraia e converta o áudio de vídeos diretamente para o formato MP3.
+    * **Apenas Vídeo (MP4):** Baixe o stream de vídeo sem áudio, ideal para edições.
 * **Suporte a Múltiplas Plataformas:** Compatível com uma vasta gama de sites de vídeo/mídia.
 * **Detecção Inteligente de Playlists:**
-    * Identifica automaticamente se o link fornecido é de uma playlist.
-    * **Pergunta ao Usuário:** Antes de iniciar o download, o aplicativo perguntará se você deseja baixar todos os itens da playlist ou apenas o vídeo/música individual.
-* **Acesso a Conteúdo Restrito (com cookies):** Permite o uso de um arquivo de cookies para baixar conteúdo que requer autenticação.
-* **Organização de Downloads:**
-    * **Seleção de Diretório:** Escolha facilmente a pasta onde deseja salvar seus arquivos.
-    * **Criação de Pasta Única:** Salve todos os itens de um download (seja um vídeo único ou uma playlist) em uma pasta dedicada e organizada.
-    * **Nomenclatura Flexível:** Nomeie a pasta de download ou deixe que o app gere um nome padrão com data e hora. Se a criação de pasta for desmarcada, o nome fornecido servirá como um **prefixo** para o nome do arquivo.
-* **Interface Clara:** Acompanhe o progresso em tempo real e cancele downloads a qualquer momento.
+    * Identifica automaticamente se o link é de uma playlist.
+    * Permite que o usuário escolha entre baixar a playlist inteira ou apenas o item individual.
+* **Acesso a Conteúdo Restrito:** Use um arquivo de cookies para baixar vídeos privados ou que exigem login (desde que sua conta tenha acesso).
+* **Organização Flexível de Arquivos:**
+    * **Criação de Pastas:** Agrupe os downloads de uma sessão em uma pasta dedicada com nome personalizado ou gerado automaticamente.
+    * **Prefixo de Arquivo:** Se preferir não criar uma pasta, o nome fornecido será usado como um prefixo no nome do arquivo salvo.
+* **Feedback em Tempo Real:** Acompanhe o progresso com uma barra de status detalhada e cancele downloads a qualquer momento.
+* **Verificação Automática de Dependências:** O aplicativo verifica se o `FFmpeg` está instalado antes de iniciar, informando o usuário caso a dependência esteja ausente.
 
-## Como Utilizar (Passo a Passo)
+## Como Utilizar
 
-1.  **Obtenha o Link:** Copie a URL do vídeo ou playlist que deseja baixar.
+1.  **Cole o Link:** Copie a URL do vídeo/playlist e clique no botão **"Colar"**. O SwiftDL analisará o link e exibirá o título.
 
-2.  **Abra o SwiftDL:** Execute o aplicativo.
+2.  **Decida sobre a Playlist:** Se uma playlist for detectada, o programa perguntará se você deseja baixar todos os itens. Escolha "Sim" ou "Não".
 
-3.  **Cole o Link:** Clique em **"Colar"**. O SwiftDL analisará o link para obter o título.
+3.  **Escolha o Local:** Clique em **"Procurar"** para selecionar a pasta onde seus arquivos serão salvos.
 
-4.  **Decida sobre Playlists (se detectada):** Uma caixa de diálogo perguntará se você deseja baixar a playlist inteira.
-    * Clique em **"Sim"** para todos os itens.
-    * Clique em **"Não"** para baixar apenas o primeiro.
+4.  **Configure a Saída (Opcional):**
+    * **Para agrupar em uma pasta:** Deixe a caixa **"Criar pasta de download automaticamente"** marcada. Digite um nome no campo "Nome da Pasta" ou deixe-o vazio para um nome padrão (`SwiftDL_Downloads_DATA_HORA`).
+    * **Para salvar com um prefixo:** Desmarque a caixa e digite o texto desejado no campo "Nome da Pasta". O texto será adicionado ao início do nome do arquivo (ex: `MeuPrefixo_NomeDoVideo.mp4`).
 
-5.  **Selecione o Local para Salvar:** Clique em **"Procurar"** e escolha uma pasta.
+5.  **Selecione o Formato:** Escolha uma das três opções de download:
+    * `Vídeo Completo (MP4)`
+    * `Apenas Áudio (MP3)`
+    * `Apenas Vídeo (MP4)`
 
-6.  **Configure a Saída (Opcional):**
-    * **Para agrupar em uma pasta:** Deixe a caixa **"Criar pasta de download automaticamente"** marcada. Você pode digitar um nome no campo "Nome da Pasta (opcional)" ou deixar em branco para um nome padrão (Ex: `SwiftDL_Downloads_2025-10-02...`).
-    * **Para salvar com um prefixo:** Desmarque a caixa e digite um nome no campo "Nome da Pasta (opcional)". O texto será adicionado ao início do nome do arquivo (Ex: `MeuPrefixo_NomeDoVideo.mp4`).
+6.  **Use Cookies (se necessário):** Para conteúdo restrito, clique em "Procurar" e selecione seu arquivo de cookies `.txt`.
 
-7.  **Escolha o Formato de Download:** Selecione uma das três opções:
-    * **Vídeo Completo (MP4):** (Padrão) Baixa o vídeo com áudio na melhor qualidade MP4.
-    * **Apenas Áudio (MP3):** Extrai e salva apenas o áudio em formato MP3.
-    * **Apenas Vídeo (MP4):** Baixa o vídeo sem a faixa de áudio.
-
-8.  **Forneça Cookies (Opcional):** Para vídeos privados ou que exigem login, use o botão "Procurar" para selecionar seu arquivo de cookies (`.txt`).
-
-9.  **Iniciar o Download:** Clique em **"Baixar"**.
-
-10. **Cancelar:** A qualquer momento, clique em **"Cancelar"** para interromper o processo.
+7.  **Baixar:** Clique no botão roxo **"Baixar"** para iniciar o processo.
 
 ## Requisitos Importantes
 
-Para que o SwiftDL funcione corretamente, o **FFmpeg** é essencial.
-
-* **Verificação Automática:** O SwiftDL verificará se o FFmpeg está instalado ao ser iniciado. Se não o encontrar, exibirá um aviso e não será aberto.
+### FFmpeg
+Para conversão de áudio (MP3) e vídeo (MP4), o **FFmpeg** é essencial.
+* **Verificação Automática:** O SwiftDL irá notificá-lo ao iniciar se não conseguir encontrar o FFmpeg.
 * **Instalação:**
-    * Você precisa ter o **FFmpeg** instalado no seu sistema e configurado no `PATH` do ambiente. Baixe-o em [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html).
-    * **Alternativa Simples:** Coloque os executáveis `ffmpeg.exe` e `ffprobe.exe` (no Windows) diretamente na mesma pasta onde o executável `SwiftDL.exe` está localizado.
+    * Baixe o FFmpeg em: [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
+    * **Solução Simples:** Coloque os executáveis `ffmpeg.exe` e `ffprobe.exe` (no Windows) na mesma pasta do `SwiftDL.exe`.
+    * **Solução Avançada:** Instale o FFmpeg e adicione sua pasta `bin` ao PATH do sistema.
 
-## Solução de Problemas Comuns
+### Dependências (para rodar do código-fonte)
+Se você deseja executar o projeto a partir dos arquivos Python, instale as dependências com:
+```bash
+pip install -r requirements.txt
 
-* **"Erro ao baixar: Private video"**: O vídeo é privado. Use a opção de arquivo de cookies se sua conta tiver acesso.
-* **"Nenhum formato de vídeo/áudio compatível encontrado"**: O vídeo pode ter sido removido ou estar restrito. Verifique o link.
-* **Download travado ou lento**: Verifique sua conexão com a internet. Vídeos muito longos ou playlists grandes levam mais tempo.
+Compilando o Executável (.exe)
+Para gerar o arquivo SwiftDL.exe a partir do código-fonte, use o PyInstaller com o seguinte comando. Ele garante que todos os ícones e dependências ocultas sejam incluídos corretamente:
 
-## Licença
+# Certifique-se de que seu ambiente virtual (.venv) esteja ativo
+pyinstaller --windowed --onefile --icon="favicon/favicon.ico" --add-data "favicon;favicon" --hidden-import="PIL" swiftdlo_gui.py
 
+Licença
 Este projeto está licenciado sob a Licença MIT.
+
