@@ -1,69 +1,74 @@
-# SwiftDL - Downloader de Mídia Moderno e Eficiente
+# 🚀 SwiftDL - Downloader de Mídia Moderno e Eficiente  
 
-![Screenshot do SwiftDL](https://i.imgur.com/8fL7oYj.png)
+O **SwiftDL** é uma aplicação desktop com **interface moderna, intuitiva e tema escuro elegante** para baixar vídeos e áudios de diversas plataformas online, como **YouTube, TikTok, Instagram** e muitas outras suportadas pela poderosa biblioteca [`yt-dlp`](https://github.com/yt-dlp/yt-dlp).  
 
-O SwiftDL é uma aplicação desktop com interface moderna e intuitiva para baixar vídeos e áudios de diversas plataformas online, como YouTube, TikTok, Instagram e muitas outras suportadas pela poderosa biblioteca `yt-dlp`. Com um tema escuro agradável e ícones informativos, ele simplifica o processo de salvar seu conteúdo favorito diretamente no seu computador.
+🎨 Com um **design dark com detalhes em roxo** e ícones informativos, o SwiftDL torna o processo de salvar seu conteúdo favorito **rápido, prático e organizado**.  
 
-## Funcionalidades Principais
+---
 
-* **Interface Moderna:** Tema escuro com detalhes em roxo, desenhado para ser visualmente agradável e funcional.
-* **Múltiplos Formatos de Download:**
-    * **Vídeo Completo (MP4):** Baixe vídeos com áudio na melhor qualidade disponível.
-    * **Apenas Áudio (MP3):** Extraia e converta o áudio de vídeos diretamente para o formato MP3.
-    * **Apenas Vídeo (MP4):** Baixe o stream de vídeo sem áudio, ideal para edições.
-* **Suporte a Múltiplas Plataformas:** Compatível com uma vasta gama de sites de vídeo/mídia.
-* **Detecção Inteligente de Playlists:**
-    * Identifica automaticamente se o link é de uma playlist.
-    * Permite que o usuário escolha entre baixar a playlist inteira ou apenas o item individual.
-* **Acesso a Conteúdo Restrito:** Use um arquivo de cookies para baixar vídeos privados ou que exigem login (desde que sua conta tenha acesso).
-* **Organização Flexível de Arquivos:**
-    * **Criação de Pastas:** Agrupe os downloads de uma sessão em uma pasta dedicada com nome personalizado ou gerado automaticamente.
-    * **Prefixo de Arquivo:** Se preferir não criar uma pasta, o nome fornecido será usado como um prefixo no nome do arquivo salvo.
-* **Feedback em Tempo Real:** Acompanhe o progresso com uma barra de status detalhada e cancele downloads a qualquer momento.
-* **Verificação Automática de Dependências:** O aplicativo verifica se o `FFmpeg` está instalado antes de iniciar, informando o usuário caso a dependência esteja ausente.
+## ✨ Funcionalidades  
 
-## Como Utilizar
+- 🎭 **Interface Moderna**: Tema escuro com detalhes roxos, visualmente agradável e funcional.  
+- 📺 **Múltiplos Formatos de Download**:  
+  - **Vídeo Completo (MP4):** melhor qualidade com áudio incluso.  
+  - **Apenas Áudio (MP3):** extração e conversão direta.  
+  - **Apenas Vídeo (MP4):** ideal para edições.  
+- 🌐 **Suporte a Múltiplas Plataformas**: compatível com uma vasta lista de sites de mídia.  
+- 📑 **Detecção Inteligente de Playlists**:  
+  - Reconhecimento automático de links de playlists.  
+  - Opção de baixar a lista inteira ou apenas um item.  
+- 🔒 **Acesso a Conteúdo Restrito**: suporte a **cookies** para vídeos privados (desde que sua conta tenha acesso).  
+- 📂 **Organização Flexível de Arquivos**:  
+  - **Criação de pastas automáticas** ou personalizadas.  
+  - **Prefixo no nome do arquivo** para evitar duplicação.  
+- 📊 **Feedback em Tempo Real**: barra de progresso detalhada e opção de cancelar downloads.  
+- 🛠 **Verificação Automática de Dependências**: alerta caso o **FFmpeg** não esteja instalado.  
 
-1.  **Cole o Link:** Copie a URL do vídeo/playlist e clique no botão **"Colar"**. O SwiftDL analisará o link e exibirá o título.
+---
 
-2.  **Decida sobre a Playlist:** Se uma playlist for detectada, o programa perguntará se você deseja baixar todos os itens. Escolha "Sim" ou "Não".
+## 🖥 Como Utilizar  
 
-3.  **Escolha o Local:** Clique em **"Procurar"** para selecionar a pasta onde seus arquivos serão salvos.
+1. **Cole o Link** → copie a URL e clique em **"Colar"**. O título do vídeo/playlist será exibido.  
+2. **Playlist?** → se detectada, escolha baixar tudo ou apenas o vídeo atual.  
+3. **Escolha o Local** → clique em **"Procurar"** e selecione a pasta de destino.  
+4. **Configuração de Saída (opcional)**:  
+   - **Criar Pasta:** nome automático ou personalizado (`SwiftDL_Downloads_DATA_HORA`).  
+   - **Prefixo no Nome:** use texto como prefixo no arquivo final.  
+5. **Selecione o Formato** → `MP4 (vídeo)`, `MP3 (áudio)` ou `MP4 (somente vídeo)`.  
+6. **Cookies (opcional)** → adicione arquivo `.txt` para conteúdos restritos.  
+7. **Baixar** → clique no botão roxo **"Baixar"** e aguarde o download.  
 
-4.  **Configure a Saída (Opcional):**
-    * **Para agrupar em uma pasta:** Deixe a caixa **"Criar pasta de download automaticamente"** marcada. Digite um nome no campo "Nome da Pasta" ou deixe-o vazio para um nome padrão (`SwiftDL_Downloads_DATA_HORA`).
-    * **Para salvar com um prefixo:** Desmarque a caixa e digite o texto desejado no campo "Nome da Pasta". O texto será adicionado ao início do nome do arquivo (ex: `MeuPrefixo_NomeDoVideo.mp4`).
+---
 
-5.  **Selecione o Formato:** Escolha uma das três opções de download:
-    * `Vídeo Completo (MP4)`
-    * `Apenas Áudio (MP3)`
-    * `Apenas Vídeo (MP4)`
+## ⚙️ Requisitos  
 
-6.  **Use Cookies (se necessário):** Para conteúdo restrito, clique em "Procurar" e selecione seu arquivo de cookies `.txt`.
+### 📌 FFmpeg  
+O **FFmpeg** é necessário para conversão de áudio e vídeo.  
 
-7.  **Baixar:** Clique no botão roxo **"Baixar"** para iniciar o processo.
+- ✅ **Detecção Automática** → o SwiftDL avisa se não encontrar.  
+- 🔽 **Instalação Rápida (Windows)**:  
+  - Baixe em [ffmpeg.org/download](https://ffmpeg.org/download.html)  
+  - Coloque `ffmpeg.exe` e `ffprobe.exe` na mesma pasta do `SwiftDL.exe`.  
+- ⚡ **Instalação Avançada**: adicione a pasta `bin` do FFmpeg ao **PATH do sistema**.  
 
-## Requisitos Importantes
-
-### FFmpeg
-Para conversão de áudio (MP3) e vídeo (MP4), o **FFmpeg** é essencial.
-* **Verificação Automática:** O SwiftDL irá notificá-lo ao iniciar se não conseguir encontrar o FFmpeg.
-* **Instalação:**
-    * Baixe o FFmpeg em: [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
-    * **Solução Simples:** Coloque os executáveis `ffmpeg.exe` e `ffprobe.exe` (no Windows) na mesma pasta do `SwiftDL.exe`.
-    * **Solução Avançada:** Instale o FFmpeg e adicione sua pasta `bin` ao PATH do sistema.
-
-### Dependências (para rodar do código-fonte)
-Se você deseja executar o projeto a partir dos arquivos Python, instale as dependências com:
+### 📌 Dependências (para rodar via código-fonte)  
+Se for executar direto em Python:  
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt  
+````
 
-Compilando o Executável (.exe)
-Para gerar o arquivo SwiftDL.exe a partir do código-fonte, use o PyInstaller com o seguinte comando. Ele garante que todos os ícones e dependências ocultas sejam incluídos corretamente:
+### 📦 Compilando o Executável
 
-# Certifique-se de que seu ambiente virtual (.venv) esteja ativo
+Para gerar o SwiftDL.exe com PyInstaller:
+
+# Ative seu ambiente virtual (.venv) antes
+````
 pyinstaller --windowed --onefile --icon="favicon/favicon.ico" --add-data "favicon;favicon" --hidden-import="PIL" swiftdlo_gui.py
+````
+### 📜 Licença
 
-Licença
-Este projeto está licenciado sob a Licença MIT.
+Este projeto está licenciado sob a MIT License.
+
+✨ Feito com dedicação para tornar seus downloads mais simples, rápidos e organizados!
+
 
