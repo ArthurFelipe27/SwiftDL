@@ -1,29 +1,27 @@
 import os
 import yt_dlp
-from datetime import datetime # Importar datetime para nomes de pasta padronizados
+from datetime import datetime
 
 class SwiftDLCore:
     def __init__(self):
         self.ydl_opts = {
-            'format': 'best', # Começa como melhor qualidade, será ajustado
-            'outtmpl': '', # Será definido dinamicamente
+            'format': 'best',
+            'outtmpl': '',
             'noplaylist': True,
             'progress_hooks': [self._progress_hook],
             'postprocessors': [],
             'verbose': False,
             'quiet': True,
             'no_warnings': True,
+            'nocheckcertificate': True,
+            'ignoreerrors': True,
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
         }
         self.download_canceled = False
         self.progress_callback = None
 
     def _progress_hook(self, d):
-        """
-        Callback para monitorar o progresso do download do yt-dlp.
-        Lança uma exceção para cancelar o download se a flag download_canceled for True.
-        """
         if self.download_canceled:
-            # Esta exceção é capturada no método download para sinalizar o cancelamento.
             raise yt_dlp.utils.DownloadError("User cancelled download.")
 
         if d['status'] == 'downloading':
@@ -34,7 +32,6 @@ class SwiftDLCore:
                     percent = (downloaded_bytes / total_bytes) * 100
                     self.progress_callback(percent, 'downloading')
                 else:
-                    # Caso o total de bytes não seja conhecido, mostra progresso 0 ou um status inicial.
                     self.progress_callback(0, 'starting')
         elif d['status'] == 'finished':
             if self.progress_callback:
@@ -43,57 +40,40 @@ class SwiftDLCore:
             if self.progress_callback:
                 self.progress_callback(0, 'error')
 
-
     def set_progress_callback(self, callback):
-        """Define a função de callback para atualização de progresso na GUI."""
         self.progress_callback = callback
 
     def download(self, url, base_download_path, folder_or_prefix_name="", create_subfolder=True, audio_only=False, video_only=False, cookie_file_path=None):
-        """
-        Inicia o processo de download usando yt-dlp.
-        Gerencia caminhos de saída, formatos e opções de pós-processamento.
-        """
-        # Garante que a flag de cancelamento esteja limpa para um novo download
         self.download_canceled = False
+        final_output_dir = base_download_path
+        output_filename_template = "%(title)s.%(ext)s"
 
-        final_output_dir = base_download_path # Diretório onde os arquivos serão salvos
-        output_filename_template = "%(title)s.%(ext)s" # Template padrão do nome do arquivo
-
+        # Lógica de pastas
         if create_subfolder:
             if folder_or_prefix_name:
-                # Se o usuário especificou um nome de pasta, usa-o
                 final_output_dir = os.path.join(base_download_path, folder_or_prefix_name)
-                output_filename_template = os.path.join(final_output_dir, "%(title)s.%(ext)s")
             else:
-                # Se o usuário marcou "criar pasta automaticamente" mas não deu um nome,
-                # cria uma pasta com nome padrão baseado na data/hora
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                default_folder_name = f"SwiftDL_Downloads_{timestamp}"
-                final_output_dir = os.path.join(base_download_path, default_folder_name)
-                output_filename_template = os.path.join(final_output_dir, "%(title)s.%(ext)s")
+                final_output_dir = os.path.join(base_download_path, f"SwiftDL_{timestamp}")
+            
+            output_filename_template = os.path.join(final_output_dir, "%(title)s.%(ext)s")
         else:
-            # Se não for para criar subpasta, os arquivos vão diretamente para base_download_path
-            # O folder_or_prefix_name, se existir, será usado como prefixo do nome do arquivo
             if folder_or_prefix_name:
                 output_filename_template = os.path.join(final_output_dir, f"{folder_or_prefix_name}_%(title)s.%(ext)s")
             else:
                 output_filename_template = os.path.join(final_output_dir, "%(title)s.%(ext)s")
 
-
-        # Garante que o diretório de destino final exista antes de tentar o download
+        # Cria diretório se não existir
         if not os.path.exists(final_output_dir):
             try:
                 os.makedirs(final_output_dir)
             except OSError as e:
-                print(f"Erro ao criar o diretório: {e}")
-                if self.progress_callback:
-                    self.progress_callback(0, 'error')
+                print(f"Erro ao criar diretório: {e}")
                 return False
 
         self.ydl_opts['outtmpl'] = output_filename_template
-        self.ydl_opts['postprocessors'] = [] # Reseta post-processadores para cada download
+        self.ydl_opts['postprocessors'] = []
 
-        # Configurações para download de áudio, vídeo, ou vídeo completo
         if audio_only:
             self.ydl_opts['format'] = 'bestaudio/best'
             self.ydl_opts['postprocessors'].append({
@@ -103,18 +83,14 @@ class SwiftDLCore:
             })
         elif video_only:
             self.ydl_opts['format'] = 'bestvideo[ext=mp4]/bestvideo'
-            self.ydl_opts['postprocessors'].append({
-                'key': 'FFmpegVideoConvertor',
-                'preferedformat': 'mp4',
-            })
-        else: # Padrão: vídeo completo (áudio + vídeo)
+        else:
             self.ydl_opts['format'] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
             self.ydl_opts['postprocessors'].append({
                 'key': 'FFmpegVideoConvertor',
                 'preferedformat': 'mp4',
             })
 
-        # Adiciona o arquivo de cookies às opções do yt-dlp se um caminho válido for fornecido
+        # Cookies
         if cookie_file_path and os.path.exists(cookie_file_path):
             self.ydl_opts['cookiefile'] = cookie_file_path
         else:
@@ -123,27 +99,13 @@ class SwiftDLCore:
         try:
             with yt_dlp.YoutubeDL(self.ydl_opts) as ydl:
                 ydl.download([url])
-            return True # Retorna True se o download foi bem-sucedido
-        except yt_dlp.utils.DownloadError as e:
-            if "User cancelled" in str(e):
-                print("Download cancelled by user.")
-                return False
-            else:
-                print(f"Erro ao baixar: {e}")
-                if self.progress_callback:
-                    self.progress_callback(0, 'error')
-                return False
+            return True
         except Exception as e:
-            print(f"Ocorreu um erro inesperado: {e}")
-            if self.progress_callback:
-                self.progress_callback(0, 'error')
+            print(f"Erro no download: {e}")
             return False
         finally:
             self.download_canceled = False
-            self.ydl_opts.pop('cookiefile', None)
             self.ydl_opts['outtmpl'] = ""
 
     def cancel_download(self):
-        """Sinaliza para o processo de download ser cancelado."""
         self.download_canceled = True
-        print("Download cancellation requested.")

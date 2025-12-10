@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftDL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <header>
+            <div class="logo-area">
+                <!-- Imagem da Logo (PNG) -->
+                <img src="SwiftDL.png" alt="Logo SwiftDL" class="icon-logo">
+                <h1>SwiftDL</h1>
+            </div>
+
+            <div class="window-controls">
+                <button class="btn-icon" onclick="toggleFullscreen()" title="Tela Cheia">
+                    <!-- Ícone Fullscreen (Mantido como SVG pois é funcional) -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Seção de Link -->
+            <div class="card input-section">
+                <label for="urlInput">Link do Vídeo ou Música</label>
+                <div class="input-group">
+                    <input type="text" id="urlInput" placeholder="Cole o link do YouTube aqui...">
+
+                    <button class="btn-icon" onclick="pasteFromClipboard()" title="Colar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z" />
+                        </svg>
+                    </button>
+
+                    <button class="btn-icon" onclick="clearInput()" title="Limpar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Seção de Destino -->
+            <div class="card path-section">
+                <label for="pathInput">Salvar em</label>
+                <div class="input-group">
+                    <input type="text" id="pathInput" readonly placeholder="Selecione a pasta de destino...">
+                    <button class="btn-secondary" onclick="chooseFolder()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path
+                                d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+                        </svg>
+                        Escolher
+                    </button>
+                </div>
+            </div>
+
+            <!-- Opções Avançadas -->
+            <div class="card options-section">
+                <div class="option-row">
+                    <div class="sub-option">
+                        <label>Nome da Pasta (Opcional)</label>
+                        <input type="text" id="folderName" placeholder="Ex: Músicas Novas">
+                    </div>
+                    <div class="sub-option checkbox-container">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="createSubfolder" checked>
+                            <span class="checkmark"></span>
+                            Criar subpasta automaticamente
+                        </label>
+                    </div>
+                </div>
+
+                <div class="format-selector">
+                    <label class="radio-label">
+                        <input type="radio" name="format" value="video_audio" checked>
+                        <span class="radio-custom"></span>
+                        Vídeo (MP4)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="format" value="audio_only">
+                        <span class="radio-custom"></span>
+                        Áudio (MP3)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="format" value="video_only">
+                        <span class="radio-custom"></span>
+                        Apenas Vídeo
+                    </label>
+                </div>
+            </div>
+
+            <!-- Área de Ação e Status -->
+            <div class="action-area">
+                <div class="status-display">
+                    <span id="statusText">Aguardando...</span>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button id="btnCancel" class="btn-danger" onclick="cancelDownload()" disabled>
+                        Cancelar
+                    </button>
+                    <button id="btnDownload" class="btn-primary" onclick="startDownload()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Baixar Agora
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
