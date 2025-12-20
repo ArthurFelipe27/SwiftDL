@@ -46,12 +46,9 @@ header {
     color: var(--primary);
 }
 
-/* Configuração da Imagem PNG da Logo */
 .icon-logo {
     height: 40px;
-    /* Altura ajustada para PNG */
     width: auto;
-    /* Mantém a proporção */
     object-fit: contain;
 }
 
@@ -280,4 +277,84 @@ input[type="radio"] {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* --- NOVO: Estilos do Modal Personalizado --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fundo escuro transparente */
+    backdrop-filter: blur(4px);
+    /* Desfoque do fundo */
+    display: none;
+    /* Oculto por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-icon {
+    margin-bottom: 15px;
+}
+
+.modal-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.icon-success {
+    color: #00e676;
+}
+
+.icon-error {
+    color: var(--danger);
+}
+
+.icon-info {
+    color: var(--primary);
+}
+
+#modalTitle {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+#modalMessage {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 25px 0;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 10px;
 }

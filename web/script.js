@@ -5,18 +5,23 @@ const btnCancel = document.getElementById('btnCancel');
 const progressBar = document.getElementById('progressBar');
 const statusText = document.getElementById('statusText');
 
+// Elementos do Modal
+const modalOverlay = document.getElementById('customModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalMessage = document.getElementById('modalMessage');
+const modalIconArea = document.getElementById('modalIconArea');
+
 let isDownloading = false;
 
 // --- Funções Auxiliares ---
 
 async function pasteFromClipboard() {
     try {
-        // Tenta usar a API do navegador primeiro
         const text = await navigator.clipboard.readText();
         urlInput.value = text;
     } catch (err) {
         urlInput.focus();
-        setStatus("Use Ctrl+V para colar", true);
+        showAlert('Atenção', 'Não foi possível acessar a área de transferência. Use Ctrl+V.', 'info');
     }
 }
 
@@ -46,7 +51,6 @@ function toggleInterface(downloading) {
     urlInput.disabled = downloading;
 
     if (downloading) {
-        // Ícone de loading (Spinner)
         btnDownload.innerHTML = `
             <svg class="spin-svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
                 <path d="M12 4V2C6.48 2 2 6.48 2 12h2c0-4.41 3.59-8 8-8z"/>
@@ -54,7 +58,6 @@ function toggleInterface(downloading) {
             Processando...
         `;
     } else {
-        // Ícone de Download normal
         btnDownload.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
                 <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
@@ -63,6 +66,45 @@ function toggleInterface(downloading) {
         `;
     }
 }
+
+// --- Funções do Modal ---
+
+function showAlert(title, message, type = 'info') {
+    modalTitle.innerText = title;
+    modalMessage.innerText = message;
+
+    let iconSvg = '';
+
+    if (type === 'success') {
+        iconSvg = `<svg class="icon-success" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>`;
+    } else if (type === 'error') {
+        iconSvg = `<svg class="icon-error" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+    } else {
+        iconSvg = `<svg class="icon-info" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
+    }
+
+    modalIconArea.innerHTML = iconSvg;
+
+    modalOverlay.style.display = 'flex';
+    // Timeout pequeno para permitir a transição CSS de opacidade
+    setTimeout(() => {
+        modalOverlay.classList.add('show');
+    }, 10);
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('show');
+    setTimeout(() => {
+        modalOverlay.style.display = 'none';
+    }, 300); // Espera a animação terminar
+}
+
+// Fecha o modal se clicar fora do conteúdo
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+        closeModal();
+    }
+});
 
 // --- Comunicação com Python ---
 
@@ -79,12 +121,11 @@ function startDownload() {
     const path = pathInput.value.trim();
 
     if (!url) {
-        setStatus("Erro: Insira um link válido", true);
-        urlInput.focus();
+        showAlert("Campo Obrigatório", "Por favor, insira um link válido do YouTube.", "error");
         return;
     }
     if (!path) {
-        setStatus("Erro: Selecione uma pasta de destino", true);
+        showAlert("Campo Obrigatório", "Por favor, selecione uma pasta de destino para salvar o arquivo.", "error");
         return;
     }
 
@@ -99,7 +140,7 @@ function startDownload() {
     pywebview.api.start_download(url, path, formatMode, folderName, createSubfolder).then((started) => {
         if (!started) {
             toggleInterface(false);
-            setStatus("Falha ao iniciar o download", true);
+            showAlert("Erro", "Não foi possível iniciar o download. Verifique o link e tente novamente.", "error");
         }
     });
 }
@@ -122,17 +163,20 @@ window.onDownloadComplete = function (success) {
     toggleInterface(false);
     if (success) {
         setProgress(100);
-        setStatus("Download Concluído com Sucesso!");
+        setStatus("Concluído!");
+        showAlert("Sucesso!", "O download foi concluído com sucesso. O arquivo está na pasta selecionada.", "success");
     } else {
         setProgress(0);
         if (statusText.innerText !== "Cancelado pelo usuário") {
-            setStatus("Download finalizado (verifique erros)", true);
+            setStatus("Falhou");
+            // O alerta de erro detalhado já vem do onDownloadError ou pode ser chamado aqui se necessário
         }
     }
 };
 
 window.onDownloadError = function (errorMsg) {
-    setStatus("Erro: " + errorMsg, true);
     toggleInterface(false);
     setProgress(0);
+    setStatus("Erro");
+    showAlert("Ocorreu um Erro", "Detalhes: " + errorMsg, "error");
 };
