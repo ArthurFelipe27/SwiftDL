@@ -80,6 +80,15 @@ Clique em **“Baixar Agora”** e acompanhe o progresso em tempo real.
 
 ---
 
+## 🚀 Como Executar (Versão Desktop)
+
+1. Faça o download da [Release mais recente](https://github.com/ArthurFelipe27/SwiftDL/releases/tag/v1.0.0).
+2. Extraia o conteúdo para uma pasta.
+3. Execute o arquivo `SwiftDL.exe`.
+   * *O sistema já inclui o FFmpeg e as dependências necessárias para rodar no Windows.*
+   * 
+---
+
 ## ⚙️ Instalação e Execução (Desenvolvimento)
 
 ### 1️⃣ Pré-requisitos
