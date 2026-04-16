@@ -1,105 +1,201 @@
-# 🚀 SwiftDL - Downloader de Mídia Moderno
+# 🚀 SwiftDL – Downloader de Mídia Moderno
 
-O SwiftDL é uma aplicação desktop com **interface moderna e intuitiva** para baixar vídeos e áudios de diversas plataformas, como **YouTube, TikTok, Instagram** e muitas outras.
+![GitHub repo size](https://img.shields.io/github/repo-size/ArthurFelipe27/swiftdl?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/ArthurFelipe27/swiftdl?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/ArthurFelipe27/swiftdl?style=for-the-badge)
+![License](https://img.shields.io/github/license/ArthurFelipe27/swiftdl?style=for-the-badge)
 
-Construído com uma arquitetura híbrida poderosa: Python no backend (para performance e downloads robustos com yt-dlp e ffmpeg) e Web Technologies (HTML5/CSS3/JS) no frontend (via pywebview) para uma experiência de usuário fluida e elegante.
-
-🎨 Com um **design dark com detalhes em roxo** e ícones vetoriais, o SwiftDL torna o processo de salvar seu conteúdo favorito **rápido, prático e organizado**.
+> **SwiftDL** é uma aplicação desktop moderna para **download de vídeos e áudios** de diversas plataformas como **YouTube, TikTok, Instagram** e muitas outras. Construída com **Python no backend** e **tecnologias web no frontend**, oferece desempenho, organização e uma experiência visual elegante.
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Funcionalidades Principais
 
-- 🎭 Interface Moderna & Responsiva: Interface web nativa com Dark Mode, ícones SVG e animações suaves.
-- 📺 Múltiplos Formatos:
-  - Vídeo Completo (MP4): Melhor qualidade de vídeo e áudio combinados.
-  - Apenas Áudio (MP3): Extração de áudio e conversão automática.
-  - Apenas Vídeo (MP4): Stream de vídeo sem áudio (útil para editores).
-- 🌐 Suporte Multiplataforma: Compatível com centenas de sites suportados pelo yt-dlp.
-- 📁 Organização Automática: Criação automática de subpastas com data/hora ou nomes personalizados.
-- 🚀 Performance: Downloads executados em threads separadas para não travar a interface.
-- 🔒 Cookies: Suporte a arquivos de cookies para conteúdos restritos.
+* 🎭 **Interface Moderna e Responsiva**  
+  Interface web nativa com **Dark Mode**, ícones SVG e animações suaves.
 
-## 🛠️ Tecnologias Utilizadas
+* 📺 **Múltiplos Formatos de Download**
+  * 🎬 Vídeo Completo (MP4) — Melhor qualidade de vídeo e áudio combinados
+  * 🎵 Apenas Áudio (MP3) — Extração e conversão automática
+  * 🎞️ Apenas Vídeo (MP4) — Stream de vídeo sem áudio
 
-- Linguagem: Python 3.12+
-- Core de Download: yt-dlp
-- Processamento de Mídia: FFmpeg
-- Interface (GUI): PyWebview (Ponte Python ↔ Navegador)
-- Frontend: HTML5, CSS3, JavaScript (Vanilla)
-  
+* 🌐 **Suporte Multiplataforma**  
+  Compatível com centenas de sites suportados pelo **yt-dlp**.
+
+* 📁 **Organização Automática**  
+  Criação automática de subpastas por data/hora ou nomes personalizados.
+
+* 🚀 **Alta Performance**  
+  Downloads executados em **threads separadas**, mantendo a interface fluida.
+
+* 🔒 **Suporte a Cookies**  
+  Permite baixar conteúdos restritos utilizando arquivos de cookies.
+
 ---
 
-## 🚀 Como Usar
+## 💻 Pré-requisitos
 
-1. Cole o Link: Copie o link do vídeo/música e cole no campo principal (ou use o botão de colar).
+Antes de iniciar, certifique-se de ter:
 
-2. Escolha o Destino: Selecione a pasta onde o arquivo será salvo.
+* 🐍 **Python 3.10 ou superior**
+* 🎞️ **FFmpeg** instalado
+* 💻 Sistema operacional **Windows, Linux ou macOS**
 
-3. Configure (Opcional):
-  - Defina um nome para a subpasta.
-  - Escolha se quer criar uma subpasta automaticamente.
+---
 
-4. Selecione o Formato: Vídeo (MP4), Áudio (MP3) ou Só Vídeo.
-5. Baixar: Clique no botão "Baixar Agora" e acompanhe o progresso na barra animada.
+## 🚀 Tecnologias Utilizadas
 
-## 📸 Imagens
-<img width="1909" height="829" alt="Captura de tela 2025-12-20 144824" src="https://github.com/user-attachments/assets/8717cafa-f13d-4e05-af07-384f2121bbcc" />
+### 🧩 Backend
+
+* 🐍 **Python 3.12+**
+* ⬇️ **yt-dlp** — Core de download
+* 🎞️ **FFmpeg** — Processamento e conversão de mídia
+* 🪟 **PyWebView** — Interface desktop e ponte Python ↔ JavaScript
+
+### 🎨 Frontend
+
+* 🧱 **HTML5**
+* 💅 **CSS3**
+* ⚡ **JavaScript (Vanilla)**
+
+---
+
+## ⚙️ Como Usar
+
+1️⃣ **Cole o Link**  
+Copie o link do vídeo ou música e cole no campo principal.
+
+2️⃣ **Escolha o Destino**  
+Selecione a pasta onde o arquivo será salvo.
+
+3️⃣ **Configurações Opcionais**
+* Defina um nome para a subpasta
+* Ative a criação automática de pastas
+
+4️⃣ **Selecione o Formato**  
+Vídeo (MP4), Áudio (MP3) ou Apenas Vídeo.
+
+5️⃣ **Baixar**  
+Clique em **“Baixar Agora”** e acompanhe o progresso em tempo real.
+
+---
+
+## 🚀 Como Executar (Versão Desktop)
+
+1. Faça o download da [Release mais recente](https://github.com/ArthurFelipe27/SwiftDL/releases/tag/v1.0.0).
+2. Extraia o conteúdo para uma pasta.
+3. Execute o arquivo `SwiftDL.exe`.
+   * *O sistema já inclui o FFmpeg e as dependências necessárias para rodar no Windows.*
+   * 
+---
 
 ## ⚙️ Instalação e Execução (Desenvolvimento)
 
-Para rodar o projeto diretamente do código-fonte:
+### 1️⃣ Pré-requisitos
 
-1. Pré-requisitos
-- Python 3.10 ou superior instalado.
-- FFmpeg (veja abaixo).
+* Python 3.10+
+* FFmpeg
 
-2. Configurar o FFmpeg
-O SwiftDL precisa do FFmpeg para converter arquivos.
-    1. Baixe a versão essentials ou full do site oficial do FFmpeg ou Gyan.dev.
-    2. Extraia o arquivo e encontre ffmpeg.exe e ffprobe.exe na pasta bin.
-    3. Coloque esses dois arquivos (.exe) na raiz do projeto (mesma pasta do main.pyw).
+---
 
-3. Instalar Dependências
-Abra o terminal na pasta do projeto e execute:  
-````pip install -r requirements.txt````
+### 2️⃣ Configuração do FFmpeg
 
+1. Baixe o FFmpeg (Essentials ou Full)
+2. Extraia os arquivos
+3. Copie `ffmpeg.exe` e `ffprobe.exe` da pasta `bin`
+4. Cole ambos na raiz do projeto (mesma pasta do `main.pyw`)
 
-4. Executar  
-````python main.pyw````  
+---
 
+### 3️⃣ Instale as dependências
 
-*(Usar a extensão ``.pyw`` executa sem abrir a janela preta do terminal)*  
+```bash
+pip install -r requirements.txt
+```
 
-## 📦 Como Criar um Executável (.exe)
+---
 
-Para distribuir o SwiftDL como um aplicativo standalone para Windows:  
-1. Instale o ``auto-py-to-exe``:  
-````pip install auto-py-to-exe````
+### 4️⃣ Execute a aplicação
 
+```bash
+python main.pyw
+```
 
-2. Abra a ferramenta:  
-````auto-py-to-exe````  
+> ℹ️ O uso da extensão `.pyw` evita a abertura do terminal no Windows.
 
+---
 
-3. Configurações:
-- Script Location: main.pyw
-- One Directory (Recomendado para performance)
-- Window Based (Hide Console)
-- Icon: Selecione web/favicon.ico
-- Additional Files (Add Folder): Pasta web ➔ Destino web
-- Additional Files (Add Files): ffmpeg.exe e ffprobe.exe ➔ Destino . (raiz)
+## 📦 Criando um Executável (.exe)
+
+Para gerar um executável standalone no Windows:
+
+### 1️⃣ Instale o auto-py-to-exe
+
+```bash
+pip install auto-py-to-exe
+```
+
+---
+
+### 2️⃣ Abra a ferramenta
+
+```bash
+auto-py-to-exe
+```
+
+---
+
+### 3️⃣ Configurações Recomendadas
+
+* Script Location: `main.pyw`
+* One Directory (recomendado)
+* Window Based (Hide Console)
+* Icon: `web/favicon.ico`
+* Additional Files:
+  * Pasta `web` ➜ destino `web`
+  * Arquivos `ffmpeg.exe` e `ffprobe.exe` ➜ destino raiz (`.`)
+
+---
+
+## 📸 Demonstração
+
+### Interface Principal
+<img width="1909" height="829" alt="Interface Principal" src="https://github.com/user-attachments/assets/8717cafa-f13d-4e05-af07-384f2121bbcc" />
+
+---
 
 ## 🤝 Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
-1. Faça um Fork do projeto
-2. Crie sua Feature Branch (``git checkout -b feature/MinhaFeature``)
-3. Commit suas mudanças (``git commit -m 'Adiciona MinhaFeature'``)
-4. Push para a Branch (``git push origin feature/MinhaFeature``)
-5. Abra um Pull Request
+Contribuições são bem-vindas!
 
-## 📄 Licença
+1. Faça um **Fork** do projeto  
+2. Crie uma branch para sua feature  
+   ```bash
+   git checkout -b feature/MinhaFeature
+   ```
+3. Faça o commit  
+   ```bash
+   git commit -m "Adiciona MinhaFeature"
+   ```
+4. Faça o push  
+   ```bash
+   git push origin feature/MinhaFeature
+   ```
+5. Abra um **Pull Request**
 
-Este projeto está sob a licença MIT.  
-Desenvolvido com 💜 por **Arthur Felipe**  
+---
+
+## 🧑‍💻 Autor
+
+**Arthur Felipe**  
+🌐 GitHub: https://github.com/ArthurFelipe27  
+
+---
+
+## 📝 Licença
+
+Este projeto está licenciado sob a **Licença MIT**.
+
+---
+
+💜 *Projeto desenvolvido para oferecer uma forma rápida, organizada e elegante de salvar conteúdos multimídia utilizando Python e tecnologias web.*
