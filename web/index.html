@@ -1,25 +1,414 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwiftDL</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Variáveis Temáticas Base --- */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --input-bg: #2c2c2c;
+            --primary: #5e17eb;
+            --primary-hover: #763af5;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-color: #333;
+            --danger: #ff4444;
+            --success: #00e676;
+        }
+
+        /* --- Modo Claro (Light Theme) --- */
+        body.light-theme {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --input-bg: #e5e5e5;
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --border-color: #d2d2d7;
+            --primary: #0066cc;
+            --primary-hover: #005bb5;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+        }
+
+        .icon-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* --- Cards e Estrutura --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* --- Inputs e Ações --- */
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background-color: var(--input-bg);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 1rem;
+            user-select: text;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(94, 23, 235, 0.2);
+        }
+
+        /* --- Botões --- */
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background-color: var(--input-bg);
+            color: var(--text-muted);
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            border-radius: 10px;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            padding: 0 20px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            padding: 14px 30px;
+            font-size: 1.05rem;
+            width: 100%;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(94, 23, 235, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-danger {
+            background-color: transparent;
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            padding: 0 25px;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* --- Toggles e Layout --- */
+        .option-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sub-option {
+            flex: 1;
+        }
+
+        .checkbox-label,
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: var(--primary);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .format-selector {
+            display: flex;
+            justify-content: space-between;
+            background: var(--input-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+        }
+
+        /* --- Progresso e Status --- */
+        .action-area {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .progress-track {
+            height: 12px;
+            background-color: var(--input-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), #a270ff);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .status-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .status-details.visible {
+            opacity: 1;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        #btnDownload {
+            flex: 2;
+        }
+
+        #btnCancel {
+            flex: 1;
+        }
+
+        .spin-svg {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- Modais --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            margin-bottom: 15px;
+        }
+
+        .modal-icon svg {
+            width: 56px;
+            height: 56px;
+        }
+
+        .icon-success {
+            color: var(--success);
+        }
+
+        .icon-error {
+            color: var(--danger);
+        }
+
+        .icon-info {
+            color: var(--primary);
+        }
+
+        #modalTitle {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        #modalMessage {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0 0 25px 0;
+        }
+    </style>
 </head>
 
 <body>
-
     <div class="app-container">
         <header>
             <div class="logo-area">
-                <img src="SwiftDL.png" alt="Logo SwiftDL" class="icon-logo">
+                <!-- Fallback se não existir imagem -->
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                </svg>
                 <h1>SwiftDL</h1>
             </div>
 
             <div class="window-controls">
-                <button class="btn-icon" onclick="toggleFullscreen()" title="Tela Cheia">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <button class="btn-icon" onclick="toggleTheme()" title="Alternar Tema" id="themeBtn">
+                    <!-- Ícone de Sol / Lua inserido via JS -->
+                </button>
+                <button class="btn-icon" onclick="toggleFullscreen()" title="Ecrã Inteiro">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
                     </svg>
                 </button>
@@ -27,11 +416,11 @@
         </header>
 
         <main>
-            <!-- Seção de Link -->
-            <div class="card input-section">
-                <label for="urlInput">Link do Vídeo ou Música</label>
+            <!-- Secção de Link -->
+            <div class="card">
+                <label for="urlInput">Link do Vídeo ou Playlist</label>
                 <div class="input-group">
-                    <input type="text" id="urlInput" placeholder="Cole o link do YouTube aqui...">
+                    <input type="text" id="urlInput" placeholder="Cole a hiperligação aqui...">
 
                     <button class="btn-icon" onclick="pasteFromClipboard()" title="Colar">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -47,65 +436,67 @@
                         </svg>
                     </button>
                 </div>
+                <label class="checkbox-label" style="margin-top: 15px;">
+                    <input type="checkbox" id="allowPlaylist"> Baixar lista de reprodução (Playlist) inteira
+                </label>
             </div>
 
-            <!-- Seção de Destino -->
-            <div class="card path-section">
-                <label for="pathInput">Salvar em</label>
+            <!-- Secção de Destino -->
+            <div class="card">
+                <label for="pathInput">Guardar em</label>
                 <div class="input-group">
-                    <input type="text" id="pathInput" readonly placeholder="Selecione a pasta de destino...">
+                    <input type="text" id="pathInput" readonly placeholder="Selecione o diretório...">
                     <button class="btn-secondary" onclick="chooseFolder()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
                         </svg>
-                        Escolher
+                        Navegar
                     </button>
                 </div>
             </div>
 
             <!-- Opções Avançadas -->
-            <div class="card options-section">
+            <div class="card">
                 <div class="option-row">
                     <div class="sub-option">
                         <label>Nome da Pasta (Opcional)</label>
                         <input type="text" id="folderName" placeholder="Ex: Músicas Novas">
                     </div>
-                    <div class="sub-option checkbox-container">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="createSubfolder" checked>
-                            <span class="checkmark"></span>
-                            Criar subpasta automaticamente
+                    <div class="sub-option">
+                        <label class="checkbox-label" style="margin-top: 30px;">
+                            <input type="checkbox" id="createSubfolder" checked> Criar subpasta automaticamente
                         </label>
                     </div>
                 </div>
 
                 <div class="format-selector">
                     <label class="radio-label">
-                        <input type="radio" name="format" value="video_audio" checked>
-                        <span class="radio-custom"></span>
-                        Vídeo (MP4)
+                        <input type="radio" name="format" value="video_audio" checked> Vídeo (MP4)
                     </label>
                     <label class="radio-label">
-                        <input type="radio" name="format" value="audio_only">
-                        <span class="radio-custom"></span>
-                        Áudio (MP3)
+                        <input type="radio" name="format" value="audio_only"> Áudio (MP3)
                     </label>
                     <label class="radio-label">
-                        <input type="radio" name="format" value="video_only">
-                        <span class="radio-custom"></span>
-                        Apenas Vídeo
+                        <input type="radio" name="format" value="video_only"> Apenas Vídeo
                     </label>
                 </div>
             </div>
 
-            <!-- Área de Ação e Status -->
+            <!-- Área de Ação e Estado -->
             <div class="action-area">
-                <div class="status-display">
-                    <span id="statusText">Aguardando...</span>
-                    <div class="progress-track">
-                        <div class="progress-fill" id="progressBar"></div>
-                    </div>
+                <div class="status-header">
+                    <span id="statusTitle">Pronto</span>
+                    <span id="statusPercent">0%</span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+
+                <div class="status-details" id="statusDetails">
+                    <span id="statusSpeed">Velocidade: N/A</span>
+                    <span id="statusETA">Restante: N/A</span>
                 </div>
 
                 <div class="buttons">
@@ -113,29 +504,205 @@
                         Cancelar
                     </button>
                     <button id="btnDownload" class="btn-primary" onclick="startDownload()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                         </svg>
-                        Baixar Agora
+                        Transferir Agora
                     </button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- NOVO: Modal Personalizado -->
+    <!-- Modal Personalizado -->
     <div id="customModal" class="modal-overlay">
         <div class="modal-content">
-            <div class="modal-icon" id="modalIconArea">
-                <!-- Ícone inserido via JS -->
-            </div>
+            <div class="modal-icon" id="modalIconArea"></div>
             <h3 id="modalTitle">Título</h3>
-            <p id="modalMessage">Mensagem de detalhe aqui.</p>
-            <button class="btn-primary modal-btn" onclick="closeModal()">Entendido</button>
+            <p id="modalMessage">Mensagem de detalhe.</p>
+            <button class="btn-primary" onclick="closeModal()">Entendido</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // --- Referências DOM ---
+        const urlInput = document.getElementById('urlInput');
+        const pathInput = document.getElementById('pathInput');
+        const btnDownload = document.getElementById('btnDownload');
+        const btnCancel = document.getElementById('btnCancel');
+        const progressBar = document.getElementById('progressBar');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusPercent = document.getElementById('statusPercent');
+        const statusDetails = document.getElementById('statusDetails');
+        const statusSpeed = document.getElementById('statusSpeed');
+        const statusETA = document.getElementById('statusETA');
+
+        let isDownloading = false;
+
+        // --- Gestão de Tema ---
+        const themeBtn = document.getElementById('themeBtn');
+        const iconeSol = `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>`;
+        const iconeLua = `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7c.19 0 .38.02.57.04C11.16 6.38 10 8.56 10 11c0 3.31 2.69 6 6 6 2.44 0 4.62-1.16 5.96-2.57.02.19.04.38.04.57 0 3.86-3.14 7-7 7z"/></svg>`;
+
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            themeBtn.innerHTML = isLight ? iconeLua : iconeSol;
+            localStorage.setItem('swiftdl_theme', isLight ? 'light' : 'dark');
+        }
+
+        // Carrega a preferência
+        if (localStorage.getItem('swiftdl_theme') === 'light') {
+            document.body.classList.add('light-theme');
+            themeBtn.innerHTML = iconeLua;
+        } else {
+            themeBtn.innerHTML = iconeSol;
+        }
+
+        // --- Funções Auxiliares ---
+        function isValidURL(string) {
+            const res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+            return (res !== null);
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) urlInput.value = text;
+            } catch (err) {
+                showAlert('Atenção', 'Impossível aceder à área de transferência. Use Ctrl+V.', 'info');
+            }
+        }
+
+        function clearInput() {
+            urlInput.value = "";
+            urlInput.focus();
+        }
+
+        function toggleFullscreen() { pywebview.api.toggle_fullscreen(); }
+
+        function toggleInterface(downloading) {
+            isDownloading = downloading;
+            btnDownload.disabled = downloading;
+            btnCancel.disabled = !downloading;
+            urlInput.disabled = downloading;
+            document.getElementById('allowPlaylist').disabled = downloading;
+
+            if (downloading) {
+                statusDetails.classList.add('visible');
+                btnDownload.innerHTML = `
+                    <svg class="spin-svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4V2C6.48 2 2 6.48 2 12h2c0-4.41 3.59-8 8-8z"/></svg>
+                    A processar...`;
+            } else {
+                statusDetails.classList.remove('visible');
+                btnDownload.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    Transferir Agora`;
+            }
+        }
+
+        // --- Sistema de Modais ---
+        function showAlert(title, message, type = 'info') {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+
+            const area = document.getElementById('modalIconArea');
+            if (type === 'success') {
+                area.innerHTML = `<svg class="icon-success" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>`;
+            } else if (type === 'error') {
+                area.innerHTML = `<svg class="icon-error" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+            } else {
+                area.innerHTML = `<svg class="icon-info" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
+            }
+
+            const modal = document.getElementById('customModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        // --- Comunicação API (Backend) ---
+        async function chooseFolder() {
+            if (isDownloading) return;
+            const path = await pywebview.api.select_folder();
+            if (path) pathInput.value = path;
+        }
+
+        function startDownload() {
+            const url = urlInput.value.trim();
+            const path = pathInput.value.trim();
+
+            if (!url || !isValidURL(url)) {
+                showAlert("Atenção", "Por favor, insira uma hiperligação válida.", "error");
+                return;
+            }
+            if (!path) {
+                showAlert("Destino Necessário", "Selecione um diretório para guardar o ficheiro.", "error");
+                return;
+            }
+
+            const folderName = document.getElementById('folderName').value;
+            const createSubfolder = document.getElementById('createSubfolder').checked;
+            const formatMode = document.querySelector('input[name="format"]:checked').value;
+            const allowPlaylist = document.getElementById('allowPlaylist').checked;
+
+            toggleInterface(true);
+            window.updateProgress(0, "A preparar...", "starting", "N/A", "N/A");
+
+            pywebview.api.start_download(url, path, formatMode, folderName, createSubfolder, allowPlaylist).then((started) => {
+                if (!started) {
+                    toggleInterface(false);
+                    showAlert("Erro", "Não foi possível iniciar. Verifique o link e tente novamente.", "error");
+                }
+            });
+        }
+
+        function cancelDownload() {
+            if (isDownloading) {
+                statusTitle.innerText = "A cancelar...";
+                pywebview.api.cancel_download();
+            }
+        }
+
+        // --- Callbacks do Python ---
+        window.updateProgress = function (percent, message, status, speed, eta) {
+            progressBar.style.width = percent + '%';
+            statusPercent.innerText = percent.toFixed(1) + '%';
+            statusTitle.innerText = message;
+
+            if (speed !== 'N/A' && status === 'downloading') {
+                statusSpeed.innerText = `Velocidade: ${speed}`;
+                statusETA.innerText = `Restante: ${eta}`;
+            }
+        };
+
+        window.onDownloadComplete = function (success) {
+            toggleInterface(false);
+            if (success) {
+                window.updateProgress(100, "Concluído com Sucesso!", "finished", "N/A", "N/A");
+                showAlert("Sucesso!", "O download foi concluído com sucesso e guardado na pasta de destino.", "success");
+                clearInput();
+            } else {
+                progressBar.style.width = '0%';
+                if (statusTitle.innerText !== "A cancelar...") {
+                    statusTitle.innerText = "Falhou";
+                } else {
+                    statusTitle.innerText = "Cancelado pelo utilizador";
+                }
+            }
+        };
+
+        window.onDownloadError = function (errorMsg) {
+            toggleInterface(false);
+            progressBar.style.width = '0%';
+            statusTitle.innerText = "Erro Crítico";
+            showAlert("Ocorreu um Erro", "Detalhes: " + errorMsg, "error");
+        };
+    </script>
 </body>
 
 </html>
